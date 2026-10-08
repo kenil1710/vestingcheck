@@ -45,15 +45,16 @@ class H1DecoyStreamByRecipient(unittest.TestCase):
         o = F.file(F.new_contract(), source=cid)
         self.assertEqual(o.error, "REFUSED: SUBJECT_NOT_IN_SOURCE")
 
-    def test_recipient_and_sender_named_binds(self):
+    def test_recipient_and_sender_named_no_longer_binds(self):
+        # round-1 bound this; round 2 (test_attacks_r2.R2H1) showed the
+        # sender is chosen by whoever creates the stream, so it is refused
         body = "## Grant\nThe treasury " + F.SENDER + " streams 500,000 VEST over 36 months to " + F.RECIP + ".\n"
         mc = F.fresh_world()
         F.standard_stream(mc, start=F.PROP_TS + 5 * DAY, cliff=F.PROP_TS + 5 * DAY, end=F.PROP_TS + 5 * DAY + 36 * MONTH)
         cid = F.pin_proposal(F.proposal_bytes(body=body))
         stub.MODEL.answer = F.fields(("vesting_duration", "36 months", "streams 500,000 VEST over 36 months"))
         o = F.file(F.new_contract(), source=cid)
-        self.assertTrue(o.ok, o)
-        self.assertEqual(o.value["verdict"], "MATCHES")
+        self.assertEqual(o.error, "REFUSED: SUBJECT_NOT_IN_SOURCE")
 
     def test_sender_recipient_window_still_applies(self):
         body = "## Grant\n" + F.SENDER + " streams 500,000 VEST over 36 months to " + F.RECIP + ".\n"

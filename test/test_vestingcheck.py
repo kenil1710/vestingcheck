@@ -18,6 +18,8 @@ DAY = F.DAY
 MONTH = F.MONTH
 YEAR = F.YEAR
 MY = (C.MONTH_S, C.YEAR_S)
+M12 = C.add_months(F.START, 12)
+M36 = C.add_months(F.START, 36)
 
 
 def dur(text):
@@ -423,16 +425,16 @@ class Dates(unittest.TestCase):
 
 class CliffAndVesting(unittest.TestCase):
     def test_cliff_forms(self):
-        self.assertEqual(C.cliff_value("12-month cliff", *MY), 12 * MONTH)
-        self.assertEqual(C.cliff_value("a one year cliff", *MY), YEAR)
-        self.assertEqual(C.cliff_value("cliff of 6 months", *MY), 6 * MONTH)
-        self.assertEqual(C.cliff_value("Cliff: 90 days", *MY), 90 * DAY)
-        self.assertEqual(C.cliff_value("cliff period of 1 year", *MY), YEAR)
-        self.assertEqual(C.cliff_value("1-year cliff, 3-year vest", *MY), YEAR)
+        self.assertEqual(C.cliff_value("12-month cliff", *MY), {"seconds": 12 * MONTH, "months": 12})
+        self.assertEqual(C.cliff_value("a one year cliff", *MY), {"seconds": YEAR, "months": 12})
+        self.assertEqual(C.cliff_value("cliff of 6 months", *MY), {"seconds": 6 * MONTH, "months": 6})
+        self.assertEqual(C.cliff_value("Cliff: 90 days", *MY), {"seconds": 90 * DAY, "months": 0})
+        self.assertEqual(C.cliff_value("cliff period of 1 year", *MY)["months"], 12)
+        self.assertEqual(C.cliff_value("1-year cliff, 3-year vest", *MY)["months"], 12)
 
     def test_no_cliff(self):
-        self.assertEqual(C.cliff_value("linear vesting without a cliff", *MY), 0)
-        self.assertEqual(C.cliff_value("no cliff", *MY), 0)
+        self.assertEqual(C.cliff_value("linear vesting without a cliff", *MY), {"seconds": 0, "months": 0})
+        self.assertEqual(C.cliff_value("no cliff", *MY), {"seconds": 0, "months": 0})
 
     def test_cliff_drops(self):
         self.assertEqual(C.cliff_value("12 months", *MY)["drop"], "NO_CLIFF_WORD")
@@ -440,10 +442,12 @@ class CliffAndVesting(unittest.TestCase):
         self.assertEqual(C.cliff_value("a 12m cliff", *MY)["drop"], "AMBIGUOUS_UNIT")
 
     def test_vesting_forms(self):
-        self.assertEqual(C.vesting_value("linear over 36 months", *MY), {"seconds": 36 * MONTH, "after_cliff": False})
+        self.assertEqual(C.vesting_value("linear over 36 months", *MY),
+                         {"seconds": 36 * MONTH, "months": 36, "after_cliff": False})
         self.assertEqual(C.vesting_value("1-year cliff, 3-year vest", *MY)["seconds"], 3 * YEAR)
+        self.assertEqual(C.vesting_value("1-year cliff, 3-year vest", *MY)["months"], 36)
         self.assertEqual(C.vesting_value("12-month cliff, then linear over 36 months", *MY),
-                         {"seconds": 36 * MONTH, "after_cliff": True})
+                         {"seconds": 36 * MONTH, "months": 36, "after_cliff": True})
         self.assertEqual(C.vesting_value("streamed over 24 months", *MY)["seconds"], 24 * MONTH)
 
     def test_vesting_drops(self):
@@ -511,18 +515,12 @@ class Binding(unittest.TestCase):
         r = self.refs("{ id: 42, amount: 1 }")
         self.assertEqual(r["anchors"], [])
 
-    def test_sender_and_recipient_inside_window(self):
+    def test_sender_and_recipient_do_not_bind(self):
+        # v1.2.0: Sablier lets a stream's creator name any sender, so naming
+        # the sender and the recipient does not identify the stream
         self.facts["sender"] = F.SENDER
         r = self.refs("Grant from " + F.SENDER + " to " + F.RECIP, date=F.START - 10 * DAY)
-        self.assertEqual([a[2] for a in r["anchors"]], ["SENDER_AND_RECIPIENT", "SENDER_AND_RECIPIENT"])
-
-    def test_sender_and_recipient_window_bounds(self):
-        self.facts["sender"] = F.SENDER
-        t = "Grant from " + F.SENDER + " to " + F.RECIP
-        self.assertEqual(self.refs(t, date=F.START + 31 * DAY)["anchors"], [])
-        self.assertEqual(self.refs(t, date=F.START - 181 * DAY)["anchors"], [])
-        self.assertEqual(len(self.refs(t, date=F.START + 30 * DAY)["anchors"]), 2)
-        self.assertEqual(len(self.refs(t, date=F.START - 180 * DAY)["anchors"]), 2)
+        self.assertEqual(r["anchors"], [])
 
     def test_recipient_alone_never_binds(self):
         self.facts["sender"] = F.SENDER
@@ -663,8 +661,8 @@ class SablierReads(unittest.TestCase):
         F.standard_stream(self.mc)
         f = read(self.mc, self.tg())
         self.assertTrue(f["decidable"])
-        self.assertEqual((f["shape"], f["cliff_s"], f["symbol"]), ("LINEAR", 12 * MONTH, "VEST"))
-        self.assertEqual(f["end"] - f["start"], 36 * MONTH)
+        self.assertEqual((f["shape"], f["cliff_s"], f["symbol"]), ("LINEAR", M12 - F.START, "VEST"))
+        self.assertEqual(f["end"], M36)
 
     def test_v1_linear_no_cliff_time_equals_start(self):
         F.sablier_stream(self.mc, cliff=None)
@@ -811,13 +809,18 @@ class VestingWalletReads(unittest.TestCase):
 
 def facts(**kw):
     f = {"decidable": True, "why": "", "pattern": "SABLIER_LOCKUP_v1.1", "contract": F.LOCKUP, "symbol": "VEST", "decimals": 18,
-         "total": str(F.TOTAL), "start": F.START, "end": F.START + 36 * MONTH, "cliff_s": 12 * MONTH,
+         "total": str(F.TOTAL), "start": F.START, "end": M36, "cliff_s": M12 - F.START,
          "beneficiary": F.RECIP, "cancelable": False, "unlocked_now": "0", "withdrawn": "0", "token": F.TOK}
     f.update(kw)
     return f
 
 
 BLOCK = {"number": F.FIN, "hash": "0x" + "1" * 64, "timestamp": F.FIN_TS}
+
+
+def CL(months=0, s=None):
+    """A kept cliff: whole calendar months, or seconds."""
+    return {"seconds": s if s is not None else months * MONTH, "months": months if s is None else 0}
 
 
 def kept(**kw):
@@ -828,7 +831,9 @@ def kept(**kw):
 
 
 def V(**kw):
-    return {"seconds": kw.get("s", 36 * MONTH), "after_cliff": kw.get("after", False)}
+    if "s" in kw:
+        return {"seconds": kw["s"], "months": 0, "after_cliff": kw.get("after", False)}
+    return {"seconds": 36 * MONTH, "months": 36, "after_cliff": kw.get("after", False)}
 
 
 class Verdicts(unittest.TestCase):
@@ -836,7 +841,7 @@ class Verdicts(unittest.TestCase):
         return C.decide(k, f or facts(), tis, block)
 
     def test_all_match(self):
-        out = self.d(kept(total_amount="500000", token_symbol="VEST", cliff_duration=12 * MONTH,
+        out = self.d(kept(total_amount="500000", token_symbol="VEST", cliff_duration=CL(12),
                           vesting_duration=V(), start_date=F.START, beneficiary=F.RECIP))
         self.assertEqual((out["verdict"], out["decided"]), ("MATCHES", 6))
 
@@ -871,39 +876,41 @@ class Verdicts(unittest.TestCase):
         self.assertEqual(out["verdict"], "UNVERIFIABLE")
 
     def test_duration_boundary_two_days(self):
-        f = facts(end=F.START + 36 * MONTH + 2 * DAY)
+        f = facts(end=M36 + 2 * DAY)
         self.assertEqual(self.d(kept(vesting_duration=V()), f)["fields"]["vesting_duration"], "MATCHES")
-        f = facts(end=F.START + 36 * MONTH + 2 * DAY + 1)
+        f = facts(end=M36 + 2 * DAY + 1)
         self.assertEqual(self.d(kept(vesting_duration=V()), f)["fields"]["vesting_duration"], "UNLOCKS_LATER")
-        f = facts(end=F.START + 36 * MONTH - 2 * DAY)
+        f = facts(end=M36 - 2 * DAY)
         self.assertEqual(self.d(kept(vesting_duration=V()), f)["fields"]["vesting_duration"], "MATCHES")
-        f = facts(end=F.START + 36 * MONTH - 2 * DAY - 1)
+        f = facts(end=M36 - 2 * DAY - 1)
         self.assertEqual(self.d(kept(vesting_duration=V()), f)["fields"]["vesting_duration"], "UNLOCKS_EARLIER")
 
     def test_cliff_boundaries(self):
-        self.assertEqual(self.d(kept(cliff_duration=12 * MONTH), facts(cliff_s=12 * MONTH - 2 * DAY))["fields"]["cliff_duration"], "MATCHES")
-        self.assertEqual(self.d(kept(cliff_duration=12 * MONTH), facts(cliff_s=12 * MONTH - 2 * DAY - 1))["fields"]["cliff_duration"], "UNLOCKS_EARLIER")
-        self.assertEqual(self.d(kept(cliff_duration=12 * MONTH), facts(cliff_s=12 * MONTH + 2 * DAY + 1))["fields"]["cliff_duration"], "UNLOCKS_LATER")
+        c = M12 - F.START
+        self.assertEqual(self.d(kept(cliff_duration=CL(12)), facts(cliff_s=c - 2 * DAY))["fields"]["cliff_duration"], "MATCHES")
+        self.assertEqual(self.d(kept(cliff_duration=CL(12)), facts(cliff_s=c - 2 * DAY - 1))["fields"]["cliff_duration"], "UNLOCKS_EARLIER")
+        self.assertEqual(self.d(kept(cliff_duration=CL(12)), facts(cliff_s=c + 2 * DAY + 1))["fields"]["cliff_duration"], "UNLOCKS_LATER")
 
     def test_claimed_cliff_missing_on_chain(self):
-        out = self.d(kept(cliff_duration=DAY), facts(cliff_s=0))
+        out = self.d(kept(cliff_duration=CL(s=DAY)), facts(cliff_s=0))
         self.assertEqual((out["fields"]["cliff_duration"], out["why"]["cliff_duration"]),
                          ("UNLOCKS_EARLIER", "CLAIMED_CLIFF_NOT_ON_CHAIN"))
 
     def test_no_cliff_claim_matches_no_cliff(self):
-        self.assertEqual(self.d(kept(cliff_duration=0), facts(cliff_s=0))["fields"]["cliff_duration"], "MATCHES")
+        self.assertEqual(self.d(kept(cliff_duration=CL(0)), facts(cliff_s=0))["fields"]["cliff_duration"], "MATCHES")
 
     def test_dynamic_cliff_unverifiable(self):
-        out = self.d(kept(cliff_duration=YEAR), facts(cliff_s=-1))
+        out = self.d(kept(cliff_duration=CL(12)), facts(cliff_s=-1))
         self.assertEqual(out["why"]["cliff_duration"], "SHAPE_HAS_NO_CLIFF_CODE_CAN_READ")
 
     def test_after_cliff_reading_b(self):
-        k = kept(cliff_duration=12 * MONTH, vesting_duration=V(after=True))
-        self.assertEqual(self.d(k, facts(end=F.START + 48 * MONTH))["fields"]["vesting_duration"], "MATCHES")
-        self.assertEqual(self.d(k, facts(end=F.START + 36 * MONTH))["fields"]["vesting_duration"], "MATCHES")
-        self.assertEqual(self.d(k, facts(end=F.START + 42 * MONTH))["fields"]["vesting_duration"], "UNVERIFIABLE")
-        self.assertEqual(self.d(k, facts(end=F.START + 30 * MONTH))["fields"]["vesting_duration"], "UNLOCKS_EARLIER")
-        self.assertEqual(self.d(k, facts(end=F.START + 50 * MONTH))["fields"]["vesting_duration"], "UNLOCKS_LATER")
+        k = kept(cliff_duration=CL(12), vesting_duration=V(after=True))
+        am = lambda n: C.add_months(F.START, n)
+        self.assertEqual(self.d(k, facts(end=am(48)))["fields"]["vesting_duration"], "MATCHES")
+        self.assertEqual(self.d(k, facts(end=am(36)))["fields"]["vesting_duration"], "MATCHES")
+        self.assertEqual(self.d(k, facts(end=am(42)))["fields"]["vesting_duration"], "UNVERIFIABLE")
+        self.assertEqual(self.d(k, facts(end=am(30)))["fields"]["vesting_duration"], "UNLOCKS_EARLIER")
+        self.assertEqual(self.d(k, facts(end=am(50)))["fields"]["vesting_duration"], "UNLOCKS_LATER")
 
     def test_start_date(self):
         self.assertEqual(self.d(kept(start_date=F.START), facts(start=F.START + 2 * DAY))["fields"]["start_date"], "MATCHES")
@@ -927,7 +934,7 @@ class Verdicts(unittest.TestCase):
         self.assertEqual(out["verdict"], "MATCHES")
 
     def test_precedence(self):
-        out = self.d(kept(total_amount="600000", token_symbol="VEST", cliff_duration=13 * MONTH,
+        out = self.d(kept(total_amount="600000", token_symbol="VEST", cliff_duration=CL(13),
                           irrevocable=True, beneficiary=F.OTHER), facts(cancelable=True))
         self.assertEqual(out["verdict"], "UNLOCKS_EARLIER")
         out = self.d(kept(total_amount="400000", token_symbol="VEST", irrevocable=True), facts(cancelable=True))
@@ -936,9 +943,9 @@ class Verdicts(unittest.TestCase):
         self.assertEqual(out["verdict"], "CANCELABLE_NOT_DISCLOSED")
         out = self.d(kept(total_amount="600000", token_symbol="VEST", beneficiary=F.OTHER))
         self.assertEqual(out["verdict"], "BENEFICIARY_DIFFERS")
-        out = self.d(kept(total_amount="600000", token_symbol="VEST", cliff_duration=11 * MONTH))
+        out = self.d(kept(total_amount="600000", token_symbol="VEST", cliff_duration=CL(11)))
         self.assertEqual(out["verdict"], "LESS_THAN_CLAIMED")
-        out = self.d(kept(token_symbol="VEST", cliff_duration=11 * MONTH))
+        out = self.d(kept(token_symbol="VEST", cliff_duration=CL(11)))
         self.assertEqual(out["verdict"], "UNLOCKS_LATER")
 
     def test_rank_order_is_fixed(self):
@@ -963,7 +970,7 @@ class Verdicts(unittest.TestCase):
 # =============================================================================
 
 class UnlockMath(unittest.TestCase):
-    sched = {"start": 1000, "cliff_s": 100, "start_from": "claim"}
+    sched = {"start": 1000, "first": 1100, "cliff_s": 100, "start_from": "claim"}
     A = {"name": "A", "end": 1400, "linear_from": 1000, "duration": 400}
     B = {"name": "B", "end": 1500, "linear_from": 1100, "duration": 400}
 
@@ -995,9 +1002,10 @@ class UnlockMath(unittest.TestCase):
         r = run_ok(self, F.new_contract())
         u = r["unlock"]
         t = F.FIN_TS
-        self.assertEqual(int(u["chain_unlockable"]), F.linear_v1(F.TOTAL, F.START, F.START + 12 * MONTH, F.START + 36 * MONTH, t))
-        self.assertEqual(int(u["claim_unlockable"]["A"]), F.TOTAL * (t - F.START) // (36 * MONTH))
-        self.assertEqual(int(u["claim_unlockable"]["B"]), F.TOTAL * (t - F.START - 12 * MONTH) // (36 * MONTH))
+        self.assertEqual(int(u["chain_unlockable"]), F.linear_v1(F.TOTAL, F.START, M12, M36, t))
+        self.assertEqual(int(u["claim_unlockable"]["A"]), F.TOTAL * (t - F.START) // (M36 - F.START))
+        b_end = C.add_months(M12, 36)
+        self.assertEqual(int(u["claim_unlockable"]["B"]), F.TOTAL * (t - M12) // (b_end - M12))
         self.assertEqual((u["block"], u["amount_from"], u["start_from"]), (F.FIN, "claim", "claim"))
 
     def test_canceled_stream_records_no_math(self):
@@ -1242,7 +1250,8 @@ class Filing(unittest.TestCase):
         r = run_ok(self, self.c)
         self.assertEqual(r["verdict"], "UNLOCKS_EARLIER")
         self.assertIn("allows 500,000 VEST to unlock by " + C.iso_date(F.START + 24 * MONTH), r["summary"])
-        self.assertIn("the docs (2025-06-01) state " + C.iso_date(F.START + 36 * MONTH), r["summary"])
+        self.assertIn("the docs (2025-06-01) state " + C.iso_date(M36) + " or " + C.iso_date(C.add_months(M12, 36)),
+                      r["summary"])
 
     def test_evidence_record_complete(self):
         r = run_ok(self, self.c)

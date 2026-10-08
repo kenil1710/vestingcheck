@@ -27,7 +27,7 @@ for (const s of seeds) {
   if (only && !only.includes(s.id)) continue;
   if (doc.runs.some((r) => r.id === s.id && r.record_id)) { console.log(`skip ${s.id} (recorded)`); continue; }
   const github = s.source.startsWith("https://");
-  for (let t = 1; t <= tries; t++) {
+  for (let t = 1; t <= (s.tries ?? tries); t++) {
     if (github) {
       const wait = lastGithub + 330_000 - Date.now();
       if (wait > 0) { console.log(`  GitHub spacing: waiting ${Math.round(wait / 1000)}s`); await sleep(wait); }

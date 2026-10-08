@@ -398,6 +398,6 @@ def file(c, source=RAW, branch="", chain="ethereum", contract=LOCKUP, extra=str(
 def standard_stream(mc, **kw):
     """Matches DOCS: 500,000 VEST, start 2025-01-01, 12-month cliff, 36 months
     from the start, non-cancelable."""
-    args = dict(start=START, cliff=START + 12 * MONTH, end=START + 36 * MONTH, deposited=TOTAL)
+    args = dict(start=START, cliff=C.add_months(START, 12), end=C.add_months(START, 36), deposited=TOTAL)
     args.update(kw)
     sablier_stream(mc, **args)
