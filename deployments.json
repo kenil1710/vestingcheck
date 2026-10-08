@@ -1,0 +1,40 @@
+{
+  "network": "studiodev",
+  "chain_id": 61997,
+  "rpc": "https://studio-dev.genlayer.com/api",
+  "explorer": "https://explorer-studio-dev.genlayer.com/",
+  "contracts": {
+    "VestingCheck": {
+      "address": "0xa4b5cc3e3a4978b11501896708F49c0Ce40e8E1d",
+      "deploy_tx": "0x46f9528777c5ed811811be39bd14fd16ab29e2ebca8a2f39a785999267351a0b",
+      "file": "contracts/VestingCheck.py",
+      "commit": "ca6163087d10457b7cb85574b2717be3bc0f8c85",
+      "bytes": 121508,
+      "sha256": "3a9aebe5f8f305523db4c960454fcc720ec2b6cfb08a68ab00091b4fdac8c351",
+      "constructor_args": [
+        "CANONICAL",
+        21600,
+        3600
+      ],
+      "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
+      "deployed_at": "2026-10-08T08:13:23.149Z",
+      "mode": "CANONICAL"
+    },
+    "VestingCheckDemo": {
+      "address": "0xE93C0D832fEdF9748a9C861d9d0D6494F8545023",
+      "deploy_tx": "0x8780c42d0ee8563e15036df5b32a8ce5df97e50c1fcb4e89a4ab89dd3bfc9d2f",
+      "file": "contracts/VestingCheck.py",
+      "commit": "ca6163087d10457b7cb85574b2717be3bc0f8c85",
+      "bytes": 121508,
+      "sha256": "3a9aebe5f8f305523db4c960454fcc720ec2b6cfb08a68ab00091b4fdac8c351",
+      "constructor_args": [
+        "DEMO",
+        60,
+        1800
+      ],
+      "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
+      "deployed_at": "2026-10-08T08:13:34.071Z",
+      "mode": "DEMO"
+    }
+  }
+}

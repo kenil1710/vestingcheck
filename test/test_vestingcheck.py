@@ -503,7 +503,7 @@ class Binding(unittest.TestCase):
         self.assertEqual([a[2] for a in r["anchors"]], ["CONTRACT_ID", "CONTRACT_ID"])
 
     def test_address_plus_id_mention(self):
-        r = self.refs("Lockup: " + F.LOCKUP + "\n{ id: 42, amount: 1 }\n{ id: 43, amount: 2 }")
+        r = self.refs("Sablier lockup: " + F.LOCKUP + "\n{ id: 42, amount: 1 }\n{ id: 43, amount: 2 }")
         self.assertEqual([a[2] for a in r["anchors"]], ["ADDRESS_ID"])
         self.assertEqual(len(r["others"]), 1)
 
@@ -511,21 +511,34 @@ class Binding(unittest.TestCase):
         r = self.refs("{ id: 42, amount: 1 }")
         self.assertEqual(r["anchors"], [])
 
-    def test_recipient_inside_window(self):
-        r = self.refs("Grant to " + F.RECIP, date=F.START - 10 * DAY)
-        self.assertEqual([a[2] for a in r["anchors"]], ["RECIPIENT"])
+    def test_sender_and_recipient_inside_window(self):
+        self.facts["sender"] = F.SENDER
+        r = self.refs("Grant from " + F.SENDER + " to " + F.RECIP, date=F.START - 10 * DAY)
+        self.assertEqual([a[2] for a in r["anchors"]], ["SENDER_AND_RECIPIENT", "SENDER_AND_RECIPIENT"])
 
-    def test_recipient_outside_window(self):
-        self.assertEqual(self.refs("Grant to " + F.RECIP, date=F.START + 31 * DAY)["anchors"], [])
-        self.assertEqual(self.refs("Grant to " + F.RECIP, date=F.START - 181 * DAY)["anchors"], [])
-        self.assertEqual(len(self.refs("Grant to " + F.RECIP, date=F.START + 30 * DAY)["anchors"]), 1)
-        self.assertEqual(len(self.refs("Grant to " + F.RECIP, date=F.START - 180 * DAY)["anchors"]), 1)
+    def test_sender_and_recipient_window_bounds(self):
+        self.facts["sender"] = F.SENDER
+        t = "Grant from " + F.SENDER + " to " + F.RECIP
+        self.assertEqual(self.refs(t, date=F.START + 31 * DAY)["anchors"], [])
+        self.assertEqual(self.refs(t, date=F.START - 181 * DAY)["anchors"], [])
+        self.assertEqual(len(self.refs(t, date=F.START + 30 * DAY)["anchors"]), 2)
+        self.assertEqual(len(self.refs(t, date=F.START - 180 * DAY)["anchors"]), 2)
+
+    def test_recipient_alone_never_binds(self):
+        self.facts["sender"] = F.SENDER
+        self.assertEqual(self.refs("Grant to " + F.RECIP, date=F.START)["anchors"], [])
 
     def test_vesting_wallet_anchor_and_competitor(self):
         tg = C.parse_target("ethereum", F.WALLET, F.TOK)
         r = C.subject_refs(F.DOCS_VW, F.DOCS_VW.lower(), "ethereum", tg, {"beneficiary": F.RECIP, "token": F.TOK}, 0)
         self.assertEqual([a[2] for a in r["anchors"]], ["ADDRESS"])
         self.assertEqual([o[2] for o in r["others"]], ["OTHER_VESTING_ADDRESS"])
+
+    def test_block_bounds_is_the_innermost_section(self):
+        t = "# A\nintro\n## B\nline b\n## C\nline c\n"
+        self.assertEqual(t[slice(*C.block_bounds(t, t.find("line b")))], "## B\nline b\n")
+        self.assertEqual(t[slice(*C.block_bounds(t, t.find("intro")))], "# A\nintro\n")
+        self.assertEqual(t[slice(*C.section_bounds(t, t.find("intro")))], t)
 
     def test_bound_same_section(self):
         r = self.refs(F.DOCS)
@@ -797,7 +810,7 @@ class VestingWalletReads(unittest.TestCase):
 # =============================================================================
 
 def facts(**kw):
-    f = {"decidable": True, "why": "", "contract": F.LOCKUP, "symbol": "VEST", "decimals": 18,
+    f = {"decidable": True, "why": "", "pattern": "SABLIER_LOCKUP_v1.1", "contract": F.LOCKUP, "symbol": "VEST", "decimals": 18,
          "total": str(F.TOTAL), "start": F.START, "end": F.START + 36 * MONTH, "cliff_s": 12 * MONTH,
          "beneficiary": F.RECIP, "cancelable": False, "unlocked_now": "0", "withdrawn": "0", "token": F.TOK}
     f.update(kw)
@@ -838,6 +851,12 @@ class Verdicts(unittest.TestCase):
         self.assertEqual(out["fields"]["total_amount"], "MATCHES")
         out = self.d(kept(total_amount=str(claim), token_symbol="VEST"), facts(total=str(F.TOTAL - lim - 1)))
         self.assertEqual(out["fields"]["total_amount"], "LESS_THAN_CLAIMED")
+
+    def test_wallet_symbol_alone_does_not_bind(self):
+        out = self.d(kept(total_amount="500000", token_symbol="VEST"), facts(pattern=C.K_VW))
+        self.assertEqual(out["fields"], {"token_symbol": "UNVERIFIABLE", "total_amount": "UNVERIFIABLE"})
+        out = self.d(kept(total_amount="500000", token_symbol="VEST"), facts(pattern=C.K_VW), tis=True)
+        self.assertEqual(out["fields"], {"token_symbol": "MATCHES", "total_amount": "MATCHES"})
 
     def test_amount_needs_token_bound(self):
         out = self.d(kept(total_amount="500000"))

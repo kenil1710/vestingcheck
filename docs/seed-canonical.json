@@ -1,0 +1,37 @@
+{
+  "contract": "0xa4b5cc3e3a4978b11501896708F49c0Ce40e8E1d",
+  "runs": [
+    {
+      "id": "exaip28-hypernative",
+      "label": "Exactly EXAIP-28: 52,000 EXA to Hypernative, 12 months linear via Sablier",
+      "try": 1,
+      "at": "2026-10-08T08:16:27.867Z",
+      "tx": "0x4f1821950ae07cb589803a90639ed9e30d981fbbd784c53f320024bb79d8e244",
+      "status": "ACCEPTED",
+      "ok": true,
+      "seconds": 146.068,
+      "revert": "",
+      "record_id": 1,
+      "verdict": "UNLOCKS_LATER",
+      "basis": "MOST_IMPORTANT_DECIDED_FIELD",
+      "block": 157923573,
+      "summary": "At block 157923573 (2026-10-08 07:52 UTC) the contract allows 52,000 EXA to unlock by 2027-03-03; the proposal (2026-02-04) states 2027-02-26 (its 360 days counted from the on-chain start). 4 of 4 fields decided: UNLOCKS_LATER."
+    },
+    {
+      "id": "exaip23-hypernative",
+      "label": "Exactly EXAIP-23: 30,000 EXA to Hypernative, 12 months linear via Sablier",
+      "try": 1,
+      "at": "2026-10-08T08:17:57.711Z",
+      "tx": "0xb721b56726d1dd890465aaac83c464f3640035dd1e45863e3a7fc6e1105f7b77",
+      "status": "ACCEPTED",
+      "ok": true,
+      "seconds": 74.832,
+      "revert": "",
+      "record_id": 2,
+      "verdict": "UNVERIFIABLE",
+      "basis": "NO_FIELD_KEPT",
+      "block": 157923573,
+      "summary": "At block 157923573 (2026-10-08 07:52 UTC) the contract allows 30,000 EXA to unlock by 2026-04-30; the proposal (2025-04-01) states no schedule code could read. 0 of 0 fields decided: UNVERIFIABLE."
+    }
+  ]
+}

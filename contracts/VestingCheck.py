@@ -66,7 +66,7 @@ import typing
 #
 # The runner rejects the str replace method; slice around find() instead.
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 V_MATCHES = "MATCHES"
 V_EARLIER = "UNLOCKS_EARLIER"
@@ -697,6 +697,30 @@ def section_bounds(text: str, pos: int) -> tuple:
     return (start, end)
 
 
+def block_bounds(text: str, pos: int) -> tuple:
+    """(start, end) between the nearest heading of ANY level before `pos` and
+    the next heading of any level (the innermost section)."""
+    s = 0
+    k = text.rfind("\n", 0, pos)
+    while k >= 0:
+        e = text.find("\n", k + 1)
+        line = text[k + 1:] if e < 0 else text[k + 1:e]
+        if _heading_level(line) > 0 and k + 1 <= pos:
+            s = k + 1
+            break
+        k = text.rfind("\n", 0, k)
+    e = len(text)
+    k = text.find("\n", pos)
+    while k >= 0:
+        n = text.find("\n", k + 1)
+        line = text[k + 1:] if n < 0 else text[k + 1:n]
+        if _heading_level(line) > 0:
+            e = k + 1
+            break
+        k = n
+    return (s, e)
+
+
 def line_bounds(text: str, a: int, b: int) -> tuple:
     s = text.rfind("\n", 0, a)
     s = 0 if s < 0 else s + 1
@@ -809,10 +833,12 @@ def subject_refs(text: str, low: str, chain: str, tg: dict, facts: dict, src_dat
       LINK       a Sablier app link with this deployment's alias, this chain's
                  id and this stream id
       CONTRACT_ID  "<lockup>-<chainId>-<id>" or "<lockup>/<id>"
-      ADDRESS_ID the lockup address is in the source and this id is named
-                 ("id: 12", "stream #12") - the anchor is that mention
-      RECIPIENT  the stream's recipient (read at the block) is in the source
-                 and the stream starts within [source date - 30 d, + 180 d]
+      ADDRESS_ID this id is named ("id: 12", "stream #12") in a section that
+                 also names the lockup address and says "stream" or "Sablier"
+                 - the anchor is that mention
+      SENDER_AND_RECIPIENT  the stream's sender AND recipient (read at the
+                 block) are in the source and the stream starts within
+                 [source date - 30 d, source date + 180 d]
     VestingWallet: the wallet address itself (ADDRESS).
     Others: every other Sablier stream reference; for a VestingWallet, every
     other address on a line that says "vest"."""
@@ -834,18 +860,32 @@ def subject_refs(text: str, low: str, chain: str, tg: dict, facts: dict, src_dat
                 anchors.append((p, e, "CONTRACT_ID"))
             elif a in deployments or a == tg["contract"]:
                 others.append((p, e, "CONTRACT_ID"))
-        if len(address_positions(low, tg["contract"])) > 0:
-            for (p, e, sid) in id_mentions(low):
-                if sid == tg["stream_id"]:
-                    anchors.append((p, e, "ADDRESS_ID"))
-                else:
-                    others.append((p, e, "ADDRESS_ID"))
+        # round-1 fix M2: an id mention counts only in a section that names
+        # the lockup address and talks about a stream (or Sablier)
+        lock_pos = address_positions(low, tg["contract"])
+        for (p, e, sid) in id_mentions(low):
+            s0, e0 = block_bounds(text, p)
+            sec = low[s0:e0]
+            if len([x for x in lock_pos if s0 <= x < e0]) == 0:
+                continue
+            if sec.find("stream") < 0 and sec.find("sablier") < 0:
+                continue
+            if sid == tg["stream_id"]:
+                anchors.append((p, e, "ADDRESS_ID"))
+            else:
+                others.append((p, e, "ADDRESS_ID"))
+        # round-1 fix H1: anyone can open a stream to any recipient, so the
+        # recipient alone never binds; the source must also name the sender
         rc = facts.get("beneficiary", "")
+        sd = facts.get("sender", "")
         st = int(facts.get("start", 0) or 0)
-        if rc != "" and rc != ZERO and src_date > 0 and \
+        if rc != "" and rc != ZERO and sd != "" and sd != ZERO and src_date > 0 and \
                 src_date - RECIPIENT_WINDOW_BEFORE <= st <= src_date + RECIPIENT_WINDOW_AFTER:
-            for p in address_positions(low, rc):
-                anchors.append((p, p + 42, "RECIPIENT"))
+            ps = address_positions(low, sd)
+            pr = address_positions(low, rc)
+            if len(ps) > 0 and len(pr) > 0:
+                for p in sorted(ps + pr):
+                    anchors.append((p, p + 42, "SENDER_AND_RECIPIENT"))
     else:
         for p in address_positions(low, tg["contract"]):
             anchors.append((p, p + 42, "ADDRESS"))
@@ -927,6 +967,7 @@ DUR_UNITS = {"s": 1, "sec": 1, "secs": 1, "second": 1, "seconds": 1,
              "mo": -1, "mos": -1, "mth": -1, "mths": -1, "month": -1, "months": -1,
              "y": -2, "yr": -2, "yrs": -2, "year": -2, "years": -2}
 AMBIGUOUS_UNITS = ("m",)
+FRACTION_WORDS = ("half", "halves", "quarter", "quarters", "third", "thirds")
 
 
 def tokens(text: str) -> list:
@@ -1049,6 +1090,9 @@ def durations(text: str, month_s: int, year_s: int) -> list:
     <number> <unit> in the text ("12-month", "1 year", "36 months", "4y",
     "1.5 years", "one-year"). A unit "m" makes the result None (ambiguous)."""
     xs = _num_tokens(tokens(text))
+    for x in xs:
+        if x[0] == "a" and x[1] in FRACTION_WORDS:
+            return None       # round-1 fix M1: "a year and a half" is not "a year"
     out = []
     for i in range(len(xs) - 1):
         a = xs[i]
@@ -1913,6 +1957,11 @@ def read_vesting_wallet(rd: Reader, tg: dict, block_ts: int) -> dict:
     if len(extra) > 0:
         facts["unknown_functions"] = extra
         return unverifiable(facts, "NOT_A_STANDARD_VESTING_WALLET")
+    # round-1 fix M3: OpenZeppelin's wallet has receive() but no fallback; a
+    # contract that answers an unknown function runs code nobody listed
+    probe = rd.many([rd.call(a, "0xdeadbeef")])
+    if _ok(probe[0]) is not None:
+        return unverifiable(facts, "ANSWERS_UNKNOWN_FUNCTIONS")
     r = rd.many([rd.call(a, SEL["start"]), rd.call(a, SEL["duration"]), rd.call(a, SEL["cliff"]),
                  rd.call(a, SEL["owner"]), rd.call(a, SEL["beneficiary"]),
                  rd.call(a, call_data(SEL["released"], tok[2:])),
@@ -2138,7 +2187,14 @@ def decide(kept_list: list, facts: dict, token_in_source: bool, block: dict) -> 
         else:
             res["token_symbol"] = V_UNVERIFIABLE
             why["token_symbol"] = "TOKEN_SYMBOL_DIFFERS"
-    bound = sym_ok or token_in_source
+    # round-1 fix H2: a VestingWallet holds any token anyone sends it and the
+    # filer picks the token, so for a wallet only the token's address in the
+    # source binds it; for a stream the token is the stream's own
+    sablier = str(facts.get("pattern", "")).startswith(K_SAB)
+    bound = token_in_source or (sym_ok and sablier)
+    if "token_symbol" in kept and sym_ok and not bound:
+        res["token_symbol"] = V_UNVERIFIABLE
+        why["token_symbol"] = "TOKEN_NOT_BOUND_TO_SOURCE"
     total = int(facts["total"])
     if "total_amount" in kept:
         if not bound:
@@ -2524,7 +2580,7 @@ def fetch_snapshot(pc: dict) -> dict:
     return {"text": text, "body": body,
             "meta": {"kind": "snapshot", "cid": pc["cid"], "space": p["space"], "author": p["author"],
                      "proposal_id": pid, "created": created, "timestamp": p["timestamp"]},
-            "date": p["timestamp"], "label": "snapshot.org " + p["space"] + " proposal " + pid[:10]}
+            "date": created, "label": "snapshot.org " + p["space"] + " proposal " + pid[:10]}
 
 
 def fetch_github(pin: dict, branch: str) -> dict:
