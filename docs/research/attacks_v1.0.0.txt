@@ -1,0 +1,136 @@
+test_recipient_alone_does_not_bind (test_attacks.H1DecoyStreamByRecipient.test_recipient_alone_does_not_bind) ... FAIL
+test_recipient_and_sender_named_binds (test_attacks.H1DecoyStreamByRecipient.test_recipient_and_sender_named_binds) ... ok
+test_sender_recipient_window_still_applies (test_attacks.H1DecoyStreamByRecipient.test_sender_recipient_window_still_applies) ... ok
+test_sablier_token_is_the_streams_own (test_attacks.H2FakeTokenSameSymbol.test_sablier_token_is_the_streams_own) ... ok
+test_symbol_alone_does_not_bind_a_wallet_token (test_attacks.H2FakeTokenSameSymbol.test_symbol_alone_does_not_bind_a_wallet_token) ... FAIL
+test_token_address_in_source_binds (test_attacks.H2FakeTokenSameSymbol.test_token_address_in_source_binds) ... ok
+test_half_a_year (test_attacks.M1FractionalWordsInDurations.test_half_a_year) ... FAIL
+test_plain_decimal_still_fine (test_attacks.M1FractionalWordsInDurations.test_plain_decimal_still_fine) ... ok
+test_quarter (test_attacks.M1FractionalWordsInDurations.test_quarter) ... FAIL
+test_year_and_a_half_not_read_as_a_year (test_attacks.M1FractionalWordsInDurations.test_year_and_a_half_not_read_as_a_year) ... FAIL
+test_id_in_another_section_does_not_bind (test_attacks.M2StrayIdMention.test_id_in_another_section_does_not_bind) ... FAIL
+test_id_without_stream_context_does_not_bind (test_attacks.M2StrayIdMention.test_id_without_stream_context_does_not_bind) ... FAIL
+test_stream_id_in_same_section_binds (test_attacks.M2StrayIdMention.test_stream_id_in_same_section_binds) ... ok
+test_contract_answering_unknown_selector_is_not_standard (test_attacks.M3VestingWalletFallback.test_contract_answering_unknown_selector_is_not_standard) ... FAIL
+test_standard_wallet_still_recognised (test_attacks.M3VestingWalletFallback.test_standard_wallet_still_recognised) ... ok
+test_record_uses_hub_created (test_attacks.M4ProposalDateFromHub.test_record_uses_hub_created) ... FAIL
+test_accusing_wording_never_produced (test_attacks.Resisted.test_accusing_wording_never_produced) ... ok
+test_address_not_in_source (test_attacks.Resisted.test_address_not_in_source) ... ok
+test_branch_or_tag_instead_of_sha (test_attacks.Resisted.test_branch_or_tag_instead_of_sha) ... ok
+test_canceled_stream (test_attacks.Resisted.test_canceled_stream) ... ok
+test_cooldown_boundary (test_attacks.Resisted.test_cooldown_boundary) ... ok
+test_counter_before_revert (test_attacks.Resisted.test_counter_before_revert) ... ok
+test_duplicate_filing_other_spelling (test_attacks.Resisted.test_duplicate_filing_other_spelling) ... ok
+test_fork_commit (test_attacks.Resisted.test_fork_commit) ... ok
+test_gateway_lying (test_attacks.Resisted.test_gateway_lying) ... ok
+test_history_overflow (test_attacks.Resisted.test_history_overflow) ... ok
+test_leader_old_block (test_attacks.Resisted.test_leader_old_block) ... ok
+test_lookalike_lockup_not_allowlisted (test_attacks.Resisted.test_lookalike_lockup_not_allowlisted) ... ok
+test_prompt_injection_cannot_add_a_value (test_attacks.Resisted.test_prompt_injection_cannot_add_a_value) ... ok
+test_quote_real_value_altered (test_attacks.Resisted.test_quote_real_value_altered) ... ok
+test_released_more_than_deposited (test_attacks.Resisted.test_released_more_than_deposited) ... ok
+test_self_pinned_fake_proposal_not_on_hub (test_attacks.Resisted.test_self_pinned_fake_proposal_not_on_hub) ... ok
+test_unit_tricks (test_attacks.Resisted.test_unit_tricks) ... ok
+test_wrong_section (test_attacks.Resisted.test_wrong_section) ... ok
+
+======================================================================
+FAIL: test_recipient_alone_does_not_bind (test_attacks.H1DecoyStreamByRecipient.test_recipient_alone_does_not_bind)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kenilvakariya/dev/vestingcheck/test/test_attacks.py", line 46, in test_recipient_alone_does_not_bind
+    self.assertEqual(o.error, "REFUSED: SUBJECT_NOT_IN_SOURCE")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'REFUSED: SUBJECT_NOT_IN_SOURCE'
+
+======================================================================
+FAIL: test_symbol_alone_does_not_bind_a_wallet_token (test_attacks.H2FakeTokenSameSymbol.test_symbol_alone_does_not_bind_a_wallet_token)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kenilvakariya/dev/vestingcheck/test/test_attacks.py", line 80, in test_symbol_alone_does_not_bind_a_wallet_token
+    self.assertNotEqual(o.value["verdict"], "MORE_THAN_CLAIMED")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'MORE_THAN_CLAIMED' == 'MORE_THAN_CLAIMED'
+
+======================================================================
+FAIL: test_half_a_year (test_attacks.M1FractionalWordsInDurations.test_half_a_year)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kenilvakariya/dev/vestingcheck/test/test_attacks.py", line 106, in test_half_a_year
+    self.assertIsNone(C.durations("a cliff of half a year", C.MONTH_S, C.YEAR_S))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [(31536000, 4, 5, 16, 22)] is not None
+
+======================================================================
+FAIL: test_quarter (test_attacks.M1FractionalWordsInDurations.test_quarter)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kenilvakariya/dev/vestingcheck/test/test_attacks.py", line 109, in test_quarter
+    self.assertIsNone(C.durations("vests every quarter over 1 year", C.MONTH_S, C.YEAR_S))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [(31536000, 4, 5, 25, 31)] is not None
+
+======================================================================
+FAIL: test_year_and_a_half_not_read_as_a_year (test_attacks.M1FractionalWordsInDurations.test_year_and_a_half_not_read_as_a_year)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kenilvakariya/dev/vestingcheck/test/test_attacks.py", line 102, in test_year_and_a_half_not_read_as_a_year
+    self.assertIsNone(C.durations("vesting over a year and a half", C.MONTH_S, C.YEAR_S))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [(31536000, 2, 3, 13, 19)] is not None
+
+======================================================================
+FAIL: test_id_in_another_section_does_not_bind (test_attacks.M2StrayIdMention.test_id_in_another_section_does_not_bind)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kenilvakariya/dev/vestingcheck/test/test_attacks.py", line 128, in test_id_in_another_section_does_not_bind
+    self.assertEqual(self.refs(text)["anchors"], [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [(14, 15, 'ADDRESS_ID')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(14, 15, 'ADDRESS_ID')
+
+- [(14, 15, 'ADDRESS_ID')]
++ []
+
+======================================================================
+FAIL: test_id_without_stream_context_does_not_bind (test_attacks.M2StrayIdMention.test_id_without_stream_context_does_not_bind)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kenilvakariya/dev/vestingcheck/test/test_attacks.py", line 132, in test_id_without_stream_context_does_not_bind
+    self.assertEqual(self.refs(text)["anchors"], [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [(71, 72, 'ADDRESS_ID')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(71, 72, 'ADDRESS_ID')
+
+- [(71, 72, 'ADDRESS_ID')]
++ []
+
+======================================================================
+FAIL: test_contract_answering_unknown_selector_is_not_standard (test_attacks.M3VestingWalletFallback.test_contract_answering_unknown_selector_is_not_standard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kenilvakariya/dev/vestingcheck/test/test_attacks.py", line 152, in test_contract_answering_unknown_selector_is_not_standard
+    self.assertEqual(f["why"], "ANSWERS_UNKNOWN_FUNCTIONS")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'ANSWERS_UNKNOWN_FUNCTIONS'
++ ANSWERS_UNKNOWN_FUNCTIONS
+
+
+======================================================================
+FAIL: test_record_uses_hub_created (test_attacks.M4ProposalDateFromHub.test_record_uses_hub_created)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kenilvakariya/dev/vestingcheck/test/test_attacks.py", line 174, in test_record_uses_hub_created
+    self.assertEqual(c.get_record(1)["source_date"], F.PROP_TS + 3600)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1733788800 != 1733792400
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.107s
+
+FAILED (failures=9)
