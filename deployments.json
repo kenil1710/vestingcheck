@@ -5,6 +5,41 @@
   "explorer": "https://explorer-studio-dev.genlayer.com/",
   "contracts": {
     "VestingCheck": {
+      "address": "0xB22C490cCb3cc628eF8ed8905BDc31CfeFe03664",
+      "deploy_tx": "0xf3aa160fac0722f74875eb42bec380a1feb7448af2f6653c6d0f95befbd4b3a8",
+      "file": "contracts/VestingCheck.py",
+      "commit": "293e0954e834a061764b687ed715d9c249ed9a62",
+      "bytes": 124057,
+      "sha256": "95e8373e3ee650c7df61d44568bdfc4fb2b5662c60c311d1ebbcb6ef4fcb5826",
+      "constructor_args": [
+        "CANONICAL",
+        21600,
+        3600
+      ],
+      "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
+      "deployed_at": "2026-10-08T08:28:07.584Z",
+      "mode": "CANONICAL"
+    },
+    "VestingCheckDemo": {
+      "address": "0xc7814Dbf761F4bd60351a21aC70231019B751c3C",
+      "deploy_tx": "0x42280b0606c34442bec0e1c402d25c92d3d248ea7664851099a7dec4209897d5",
+      "file": "contracts/VestingCheck.py",
+      "commit": "293e0954e834a061764b687ed715d9c249ed9a62",
+      "bytes": 124057,
+      "sha256": "95e8373e3ee650c7df61d44568bdfc4fb2b5662c60c311d1ebbcb6ef4fcb5826",
+      "constructor_args": [
+        "DEMO",
+        60,
+        1800
+      ],
+      "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
+      "deployed_at": "2026-10-08T08:28:14.628Z",
+      "mode": "DEMO"
+    }
+  },
+  "superseded": [
+    {
+      "name": "VestingCheck",
       "address": "0xa4b5cc3e3a4978b11501896708F49c0Ce40e8E1d",
       "deploy_tx": "0x46f9528777c5ed811811be39bd14fd16ab29e2ebca8a2f39a785999267351a0b",
       "file": "contracts/VestingCheck.py",
@@ -18,9 +53,12 @@
       ],
       "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
       "deployed_at": "2026-10-08T08:13:23.149Z",
-      "mode": "CANONICAL"
+      "mode": "CANONICAL",
+      "superseded_by": "0xB22C490cCb3cc628eF8ed8905BDc31CfeFe03664",
+      "why": "v1.1.0: round-1 attack fixes"
     },
-    "VestingCheckDemo": {
+    {
+      "name": "VestingCheckDemo",
       "address": "0xE93C0D832fEdF9748a9C861d9d0D6494F8545023",
       "deploy_tx": "0x8780c42d0ee8563e15036df5b32a8ce5df97e50c1fcb4e89a4ab89dd3bfc9d2f",
       "file": "contracts/VestingCheck.py",
@@ -34,7 +72,9 @@
       ],
       "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
       "deployed_at": "2026-10-08T08:13:34.071Z",
-      "mode": "DEMO"
+      "mode": "DEMO",
+      "superseded_by": "0xc7814Dbf761F4bd60351a21aC70231019B751c3C",
+      "why": "v1.1.0: round-1 attack fixes"
     }
-  }
+  ]
 }
