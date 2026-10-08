@@ -70,7 +70,7 @@ import typing
 #
 # The runner rejects the str replace method; slice around find() instead.
 
-VERSION = "1.2.0"
+VERSION = "1.2.1"
 
 V_MATCHES = "MATCHES"
 V_EARLIER = "UNLOCKS_EARLIER"
@@ -1696,21 +1696,44 @@ RELEASE_WORDS = ("vest", "vests", "vested", "vesting", "stream", "streamed", "st
                  "distributed", "fully", "schedule")
 
 
-def _one_date(quote: str) -> typing.Any:
-    """(date, start_char) of the one date in the quote, or {"drop"}."""
+def _dated_clauses(quote: str) -> typing.Any:
+    """[(date, words before it)] for every date in the quote, the words
+    running back to the previous date (or the quote's start); {"drop"} if
+    there is none or one has no year."""
     sp = date_spans(quote)
     if sp is None:
         return {"drop": "DATE_WITHOUT_YEAR"}
     if len(sp) == 0:
         return {"drop": "NO_DATE_IN_QUOTE"}
-    for x in sp:
-        if x[0] != sp[0][0]:
-            return {"drop": "SEVERAL_DATES_IN_QUOTE"}
-    first = sp[0]
-    for x in sp:
-        if x[1] < first[1]:
-            first = x
-    return (first[0], first[1])
+    sp = sorted(sp, key=lambda x: x[1])
+    out = []
+    prev = 0
+    for (d, a, b) in sp:
+        out.append((d, quote[prev:a].lower()))
+        prev = b
+    return out
+
+
+def _pick(quote: str, test: typing.Any) -> typing.Any:
+    """The one date of the quote whose own clause passes `test` (which
+    returns "" or a drop reason); several distinct ones drop the field."""
+    got = _dated_clauses(quote)
+    if isinstance(got, dict):
+        return got
+    ok = []
+    why = ""
+    for (d, pre) in got:
+        r = test(pre)
+        if r == "":
+            if d not in ok:
+                ok.append(d)
+        elif why == "":
+            why = r
+    if len(ok) == 1:
+        return ok[0]
+    if len(ok) > 1:
+        return {"drop": "SEVERAL_DATES_IN_QUOTE"}
+    return {"drop": why}
 
 
 def _tail(pre: str, n: int) -> str:
@@ -1725,54 +1748,59 @@ def _relative(pre: str) -> bool:
     return ds is None or len(ds) > 0 or _has_any_word(pre, ("after", "tge"))
 
 
-def first_unlock_value(quote: str) -> typing.Any:
-    """The date before which nothing unlocks (the end of a cliff), or
-    {"drop"}. Only from the words BEFORE the one date in the quote:
-    "nothing released until <d>", "locked until <d>", "cliff ends on <d>",
-    "cliff: <d>", "first unlock on <d>". Refused when those words also say
-    a later phase ("then", "continuously", ...) or a start ("from")."""
-    got = _one_date(quote)
-    if isinstance(got, dict):
-        return got
-    pre = quote[:got[1]].lower()
+def _first_unlock_words(pre: str) -> str:
     if _has_any_word(pre, LATER_WORDS):
-        return {"drop": "DATE_MAY_BE_A_LATER_PHASE"}
+        return "DATE_MAY_BE_A_LATER_PHASE"
     if _has_any_word(pre, START_WORDS):
-        return {"drop": "DATE_MAY_BE_A_START"}
+        return "DATE_MAY_BE_A_START"
     if _relative(pre):
-        return {"drop": "DATE_IS_RELATIVE"}
+        return "DATE_IS_RELATIVE"
     # round-2 fix M3: the deciding words must stand right before the date
     t3 = _tail(pre, 3)
-    ok = _has_any_word(pre, NOTHING_WORDS) and _has_any_word(t3, BEFORE_WORDS)
+    if _has_any_word(pre, NOTHING_WORDS) and _has_any_word(t3, BEFORE_WORDS):
+        return ""
     if _has_word(t3, "cliff") and (_has_any_word(t3, CLIFF_DATE_WORDS) or pre.rstrip().endswith(":")):
-        ok = True
+        return ""
     if _has_any_word(_tail(pre, 4), FIRST_PHRASES):
-        ok = True
-    if not ok:
-        return {"drop": "NO_FIRST_UNLOCK_WORDS"}
-    return got[0]
+        return ""
+    return "NO_FIRST_UNLOCK_WORDS"
+
+
+def first_unlock_value(quote: str) -> typing.Any:
+    """The date before which nothing unlocks (the end of a cliff), or
+    {"drop"}. A date qualifies only by the words in front of it (back to the
+    previous date): "nothing released until <d>", "locked until <d>",
+    "cliff ends on <d>", "cliff: <d>", "first unlock on <d>"; not when those
+    words say a later phase ("then", "continuously"), a start ("from") or
+    count from the date ("12 months after"). Exactly one date of the quote
+    must qualify."""
+    return _pick(quote, _first_unlock_words)
+
+
+def _end_words(pre: str) -> str:
+    if _has_any_word(pre, NOTHING_WORDS) or _has_word(pre, "cliff"):
+        return "DATE_MAY_BE_A_FIRST_UNLOCK"
+    if _has_any_word(pre, START_WORDS):
+        return "DATE_MAY_BE_A_START"
+    if _relative(pre):
+        return "DATE_IS_RELATIVE"
+    if not _has_any_word(_tail(pre, 3), END_DATE_WORDS):
+        return "NO_END_WORD"
+    return ""
 
 
 def end_value(quote: str, release_ctx: bool) -> typing.Any:
-    """The date by which everything is unlocked, or {"drop"}: the words
-    before the one date say until / by / through / ends / fully, the quote
-    (or its table) talks about a release, and nothing before the date says
-    "nothing" / "locked" / "cliff" (that is a first unlock) or a start."""
-    got = _one_date(quote)
+    """The date by which everything is unlocked, or {"drop"}: the words in
+    front of the date say until / by / through / ends / fully / in full
+    (one of the last three words), not "nothing" / "locked" / "cliff" (a
+    first unlock), not a start; and the quote (or its table) talks about a
+    release. Exactly one date of the quote must qualify."""
+    got = _pick(quote, _end_words)
     if isinstance(got, dict):
         return got
-    pre = quote[:got[1]].lower()
-    if _has_any_word(pre, NOTHING_WORDS) or _has_word(pre, "cliff"):
-        return {"drop": "DATE_MAY_BE_A_FIRST_UNLOCK"}
-    if _has_any_word(pre, START_WORDS):
-        return {"drop": "DATE_MAY_BE_A_START"}
-    if _relative(pre):
-        return {"drop": "DATE_IS_RELATIVE"}
-    if not _has_any_word(_tail(pre, 3), END_DATE_WORDS):
-        return {"drop": "NO_END_WORD"}
     if not release_ctx and not _has_any_word(quote.lower(), RELEASE_WORDS):
         return {"drop": "NO_RELEASE_WORD"}
-    return got[0]
+    return got
 
 
 def _header_unit(hl: str) -> str:
@@ -1989,6 +2017,26 @@ def cuts_token(docs: str, a: int, b: int) -> bool:
 
 RECIPIENT_WORDS = ("beneficiary", "beneficiaries", "recipient", "recipients", "receiver", "receives", "receive",
                    "to", "wallet", "owner", "payee", "grantee", "paid", "sent", "for")
+def clause_before(text: str, a: int) -> str:
+    """The source words in front of a quote, back to the start of its line,
+    the last ". " / ";" or the end of the previous date on the line: a date
+    is read as a first unlock or an end from the words before it in the
+    source ("... until 6 October 2029"), however much of them the quote
+    repeats."""
+    ls = text.rfind("\n", 0, a) + 1
+    s = ls
+    for d in (". ", "; "):
+        k = text.rfind(d, ls, a)
+        if k >= 0 and k + 2 > s:
+            s = k + 2
+    sp = date_spans(text[ls:a])
+    if sp is not None:
+        for x in sp:
+            if ls + x[2] > s:
+                s = ls + x[2]
+    return text[s:a]
+
+
 TABLE_FIELDS = ("total_amount", "cliff_duration", "vesting_duration", "start_date", "first_unlock_date",
                 "end_date")
 
@@ -2056,7 +2104,10 @@ def keep_field(raw: typing.Any, text: str, refs: dict, my: tuple, pre: typing.An
         if why != "":
             reason = why
             continue
-        v = claim_value(field, q, my[0], my[1], raw.get("value"), table_context(text, sp[0], sp[1]))
+        tctx = table_context(text, sp[0], sp[1])
+        if tctx is None and field in ("first_unlock_date", "end_date"):
+            q = clause_before(text, sp[0]) + q
+        v = claim_value(field, q, my[0], my[1], raw.get("value"), tctx)
         if isinstance(v, dict) and "drop" in v:
             return v
         if rows_disagree(text, refs, field, v, my, sp[0]):
@@ -2065,7 +2116,7 @@ def keep_field(raw: typing.Any, text: str, refs: dict, my: tuple, pre: typing.An
             return {"drop": "BENEFICIARY_IS_THE_SUBJECT"}
         if not model_value_ok(field, raw.get("value"), v, my[0], my[1]):
             return {"drop": "VALUE_DIFFERS_FROM_QUOTE"}
-        return {"field": field, "value": v, "quote": q, "at": sp[0]}
+        return {"field": field, "value": v, "quote": text[sp[0]:sp[1]], "at": sp[0]}
     return {"drop": reason}
 
 

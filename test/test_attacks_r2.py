@@ -266,10 +266,14 @@ class Resisted(unittest.TestCase):
         self.assertTrue(C.recheck_kept(k["kept"], text, r, MY))
         self.assertFalse(C.recheck_kept(bad, text, r, MY))
 
-    def test_first_unlock_and_end_from_one_sentence_need_separate_quotes(self):
+    def test_one_sentence_with_two_dates_is_split_by_each_dates_own_words(self):
         q = "Nothing released until 6 October 2027, then released continuously until 6 October 2029"
-        self.assertEqual(C.first_unlock_value(q)["drop"], "SEVERAL_DATES_IN_QUOTE")
-        self.assertEqual(C.end_value(q, False)["drop"], "SEVERAL_DATES_IN_QUOTE")
+        self.assertEqual(C.first_unlock_value(q), D(2027, 10, 6))
+        self.assertEqual(C.end_value(q, False), D(2029, 10, 6))
+        # the words of the first clause do not reach the second date
+        q2 = "Locked until 2027-01-01 and 2028-01-01"
+        self.assertEqual(C.first_unlock_value(q2), D(2027, 1, 1))
+        self.assertIn("drop", C.end_value(q2, True))
 
     def test_id_word_does_not_hide_a_second_amount(self):
         self.assertEqual(C.amount_value("amount 500,000 or 600,000 VEST", *MY)["drop"], "SEVERAL_AMOUNTS_IN_QUOTE")

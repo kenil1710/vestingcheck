@@ -116,6 +116,8 @@ class FirstUnlockDate(unittest.TestCase):
         self.assertEqual(C.first_unlock_value("a 1-year cliff from 2025-01-01")["drop"], "DATE_MAY_BE_A_START")
         self.assertEqual(C.first_unlock_value("until 6 October 2027")["drop"], "NO_FIRST_UNLOCK_WORDS")
         self.assertEqual(C.first_unlock_value("locked from 2026-10-06 until 2027-10-06")["drop"],
+                         "DATE_MAY_BE_A_START")
+        self.assertEqual(C.first_unlock_value("nothing until 2027-10-06, nothing until 2028-01-01")["drop"],
                          "SEVERAL_DATES_IN_QUOTE")
         self.assertEqual(C.first_unlock_value("nothing released until 6 October")["drop"], "DATE_WITHOUT_YEAR")
 
@@ -405,6 +407,41 @@ class DateSchedules(unittest.TestCase):
         stub.MODEL.answer = F.fields(("irrevocable", True, "Public, non-cancelable Sablier vesting streams."))
         o = F.file(F.new_contract())
         self.assertEqual(o.value["basis"], "NO_FIELD_KEPT")
+
+
+LINE = 'export const sablierLockup = "%s";\n' \
+       '  { id: 42, schedule: "Nothing released until 6 October 2027, then released continuously until 6 October 2029" },\n' % F.LOCKUP
+
+
+class ClauseBefore(unittest.TestCase):
+    """v1.2.1: a date is classified by the source words before it in its
+    clause, so a short quote and a long quote of the same date agree."""
+
+    def k(self, field, quote, text=LINE):
+        tg = C.parse_target("ethereum", F.LOCKUP, str(F.SID))
+        refs = C.subject_refs(text, text.lower(), "ethereum", tg, {}, 0)
+        ds = C.dates(quote) or [0]
+        return C.keep_field({"field": field, "value": C.iso_date(ds[0]), "quote": quote}, text, refs, MY)
+
+    def test_short_and_long_quotes_agree(self):
+        for q in ("until 6 October 2029", "6 October 2029", "released continuously until 6 October 2029",
+                  "then released continuously until 6 October 2029"):
+            got = self.k("end_date", q)
+            self.assertEqual(got.get("value"), D(2029, 10, 6), (q, got))
+        for q in ("until 6 October 2027", "6 October 2027", "Nothing released until 6 October 2027"):
+            got = self.k("first_unlock_date", q)
+            self.assertEqual(got.get("value"), D(2027, 10, 6), (q, got))
+
+    def test_kept_quote_is_the_models_span(self):
+        self.assertEqual(self.k("end_date", "6 October 2029")["quote"], "6 October 2029")
+
+    def test_wrong_field_for_a_date_still_refused(self):
+        self.assertIn("drop", self.k("end_date", "6 October 2027"))
+        self.assertIn("drop", self.k("first_unlock_date", "6 October 2029"))
+
+    def test_previous_sentence_does_not_leak(self):
+        t = 'const lockup = "%s"; // stream id: 42\nNothing moves before launch. Vesting ends 2029-01-01\n' % F.LOCKUP
+        self.assertEqual(C.clause_before(t, t.find("2029")), "Vesting ends ")
 
 
 class DecideNewFields(unittest.TestCase):
