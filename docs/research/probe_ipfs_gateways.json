@@ -1,0 +1,110 @@
+{
+  "address": "0xA81BB39ca2BA59B4f0F1a8fe86D54c44f92C2315",
+  "tx": "0xd608b6de22c07dc3e4703da5ac71e8c0350642ac2c4eefbafe2b1f92ddc0e8ad",
+  "result": [
+    {
+      "u": "https://snapshot.4everland.link/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "s": 200,
+      "n": 2177,
+      "t": "{\"address\":\"0x4e3072f7b5C075EA5FdEb423DA95312C4B99dc22\",\"sig\":\"0x72fec7935bab81a26fad47aef0c5d05c05cad3f18cb8800431e7699",
+      "h": {}
+    },
+    {
+      "u": "https://ipfs.snapshot.box/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "s": 200,
+      "n": 2177,
+      "t": "{\"address\":\"0x4e3072f7b5C075EA5FdEb423DA95312C4B99dc22\",\"sig\":\"0x72fec7935bab81a26fad47aef0c5d05c05cad3f18cb8800431e7699",
+      "h": {}
+    },
+    {
+      "u": "https://ipfs.io/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "s": 429,
+      "n": 188,
+      "t": "This IPFS gateway is switching to a service worker gateway only. See https://gatewaychanges.ipfs.io#/ipfs/bafkreianjh3zt",
+      "h": {}
+    },
+    {
+      "u": "https://dweb.link/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "s": 429,
+      "n": 188,
+      "t": "This IPFS gateway is switching to a service worker gateway only. See https://gatewaychanges.ipfs.io#/ipfs/bafkreianjh3zt",
+      "h": {}
+    },
+    {
+      "u": "https://gateway.pinata.cloud/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "s": 404,
+      "n": 89,
+      "t": "The request timed out searching for a file on the non-pinata IPFS network. - ERR_ID:00016",
+      "h": {}
+    },
+    {
+      "u": "https://w3s.link/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "s": 429,
+      "n": 188,
+      "t": "This IPFS gateway is switching to a service worker gateway only. See https://gatewaychanges.ipfs.io#/ipfs/bafkreianjh3zt",
+      "h": {}
+    },
+    {
+      "u": "https://4everland.io/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "s": 200,
+      "n": 2177,
+      "t": "{\"address\":\"0x4e3072f7b5C075EA5FdEb423DA95312C4B99dc22\",\"sig\":\"0x72fec7935bab81a26fad47aef0c5d05c05cad3f18cb8800431e7699",
+      "h": {}
+    },
+    {
+      "u": "https://cloudflare-ipfs.com/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "e": "SENDING_REQUEST"
+    },
+    {
+      "u": "https://trustless-gateway.link/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "s": 522,
+      "n": 7285,
+      "t": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class",
+      "h": {}
+    },
+    {
+      "u": "https://ipfs.filebase.io/ipfs/bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey",
+      "s": 200,
+      "n": 2177,
+      "t": "{\"address\":\"0x4e3072f7b5C075EA5FdEb423DA95312C4B99dc22\",\"sig\":\"0x72fec7935bab81a26fad47aef0c5d05c05cad3f18cb8800431e7699",
+      "h": {}
+    },
+    {
+      "u": "https://hub.snapshot.org/graphql?query=%7Bproposals%28where%3A%7Bipfs%3A%22bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2",
+      "s": 200,
+      "n": 273,
+      "t": "{\"data\":{\"proposals\":[{\"id\":\"0xbeff10567f25740606dff3e62801ce5291465f1383aba0170340730f0c28f160\",\"ipfs\":\"bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey\",\"author\":\"0x4e3072f7b5C075EA5FdEb423DA95312C4B99dc22\",\"created\":1715431029,\"space\":{\"id\":\"nation3.eth\"}}]}}",
+      "h": {
+        "ratelimit-limit": "b'100'",
+        "ratelimit-policy": "b'100;w=60'",
+        "ratelimit-remaining": "b'97'",
+        "ratelimit-reset": "b'8'"
+      }
+    },
+    {
+      "u": "https://hub.snapshot.org/graphql",
+      "s": 200,
+      "n": 273,
+      "t": "{\"data\":{\"proposals\":[{\"id\":\"0xbeff10567f25740606dff3e62801ce5291465f1383aba0170340730f0c28f160\",\"ipfs\":\"bafkreianjh3ztdn3aprhhk6re3g6fkwriadgle2k5on2kpi2ox7psrb3ey\",\"author\":\"0x4e3072f7b5C075EA5FdEb423DA95312C4B99dc22\",\"created\":1715431029,\"space\":{\"id\":\"nation3.eth\"}}]}}",
+      "h": {
+        "ratelimit-limit": "b'100'",
+        "ratelimit-policy": "b'100;w=60'",
+        "ratelimit-remaining": "b'96'",
+        "ratelimit-reset": "b'8'"
+      }
+    },
+    {
+      "u": "https://api.github.com/repos/dittoeth/docs/compare/HEAD...HEAD",
+      "s": 200,
+      "n": 7003,
+      "t": "{\"url\":\"https://api.github.com/repos/dittoeth/docs/compare/HEAD...HEAD\",\"html_url\":\"https://github.c",
+      "h": {
+        "x-ratelimit-limit": "b'60'",
+        "x-ratelimit-remaining": "b'58'",
+        "x-ratelimit-reset": "b'1791448683'",
+        "x-ratelimit-resource": "b'core'",
+        "x-ratelimit-used": "b'2'"
+      }
+    }
+  ]
+}
