@@ -59,7 +59,7 @@ add("No payable method, no custody, no owner/admin, no setter", !/PRESENT/.test(
 const pend = (cls.match(/PENDING|\bOPEN\b|deadline/gi) || []).length;
 const unsettled = [...seedsRun, ...demoRun].filter((s) => !["ACCEPTED", "FINALIZED"].includes(s.status));
 add("Nothing can get stuck", pend === 0,
-  `A filing either stores one finished record in its own transaction or stores nothing (refusal = revert; validator disagreement = no record). No pending / open state, no deadline, no second step: \`grep -ciE 'PENDING|OPEN|deadline'\` over the contract class = ${pend}. No method holds or moves value. Live: ${seedsRun.length + demoRun.length} filing transactions in docs/seed-canonical.json and docs/seed-demo.json, ${unsettled.length} not ACCEPTED/FINALIZED${unsettled.length ? " (" + unsettled.map((s) => s.tx + " " + s.status).join(", ") + "; no state was written by them)" : ""}.`);
+  `A filing either stores one finished record in its own transaction or stores nothing (refusal = revert; validator disagreement = no record). No pending / open state, no deadline, no second step: \`grep -ciE 'PENDING|OPEN|deadline'\` over the contract class = ${pend}. No method holds or moves value. Live: ${seedsRun.length + demoRun.length} filing transactions in docs/seed-canonical.json and docs/seed-demo.json, ${unsettled.length} not ACCEPTED/FINALIZED${unsettled.length ? " (" + unsettled.map((s) => (s.tx ? s.tx.slice(0, 12) + "… " : "") + (s.tx ? s.status : "never submitted: " + (s.revert || s.status))).join("; ") + "; no transaction reached the contract or none changed state)" : ""}.`);
 
 // 4. counter before revert
 const sw = sh("python3", ["tools/scan_writes.py"]);
