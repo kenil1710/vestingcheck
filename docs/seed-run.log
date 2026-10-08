@@ -1,0 +1,415 @@
+VestingCheck 0xD225b3E0D98b2F90a7a7da97C61A920465a3022E
+
+exaip23-hypernative  try 1  optimism 0xb923abdca17aed90eb5ec5e407bd37164f632bfd 7157
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: SUBJECT_NOT_IN_SOURCE  15.597s  0xd12740844ab58797bdd43c3d4170eaffab38079dfc49d41c7c4e914a84ac9808
+  waiting 60s
+
+nation3-ant-vestingwallet  try 1  ethereum 0x5cb5ba62dc8ced477f20d4692986f1cd42174761 0xa117000000f279d81a1d3cc75430faa017fa5a2e
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  39.078s  0xdddcf18dd940b529c820ad3599d8db6891e19ca93244e0c3a6b6b7330ee1b845
+
+connext-cgp11-wonderland  try 1  ethereum 0xab47c5bb2dbdcab2d8b41f083f692e608439e03f 0xfe67a4450907459c3e1fff623aa927dd4e28c67a
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  39.524s  0xc669f93fff755c23ebb1900ce57052ddd5651d787cd8cbf29ecc6f45e70fa13e
+
+gitcoin-akita-legacy  try 1  ethereum 0xcd18eaa163733da39c232722cbc4e8940b1d8888 0x3301ee63fb29f863f2333bd4466acb46cd8323e6
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  31.771s  0xfff7df9977bc32cfa68d2e56868eced1100780328e451d22ab99dc8b28e09ba5
+
+clx-founders-team  try 1  ethereum 0x93b37bd5b6b278373217333ac30d7e74c85fbdcb 1784
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true MATCHES  24.287s  0x5e397b0b0d971ec6da9e38742840c9f2a3004f3cb709c8cd9409b97bbc8736cc
+  GitHub spacing: waiting 291s
+
+clx-ecosystem  try 1  ethereum 0x93b37bd5b6b278373217333ac30d7e74c85fbdcb 1783
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true MATCHES  47.928s  0xff0b5f7a4992d7d85e84926b40881e45985bd18d393ec1e25c2ca822da50de11
+  GitHub spacing: waiting 267s
+
+clx-exchange-timelock  try 1  ethereum 0x93b37bd5b6b278373217333ac30d7e74c85fbdcb 1785
+GenLayer RPC error (sim_estimateTransactionFees): Server busy: all 8 execution slots occupied, retry later
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true MATCHES  58.897s  0xa8fbac2fb8dd83aacc8e97ccbb92b01552d9e5b34146a6fabe2206668e96894f
+  GitHub spacing: waiting 256s
+
+idos-treasury  try 1  arbitrum 0x6a553c044a6a113b01be52372e8d7bc94594bbe8 0x68731d6f14b827bbcffbebb62b19daa18de1d79c
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true MATCHES  36.228s  0x14bfacb0d732ab06204b8b70d857ce9e5162b8852580ca2904dac844aa84f2e8
+  GitHub spacing: waiting 279s
+
+idos-staking-y1-2  try 1  arbitrum 0x03ed348892a88182e74d8e76e6f7529224032ed8 0x68731d6f14b827bbcffbebb62b19daa18de1d79c
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true MATCHES  28.865s  0xee33814b80d259df6f514e390456ca32d3b797011ae23eb63e1d3eec79c03359
+  GitHub spacing: waiting 286s
+
+idos-staking-y3-6  try 1  arbitrum 0xd7740bf4fbd6f7633aec11e51f9b8d7dd6c0ae40 0x68731d6f14b827bbcffbebb62b19daa18de1d79c
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true MATCHES  53.209s  0xbd97e924b77894148015659f5fc8e7004da27f2aeefd18d90cc6006a578540cd
+  GitHub spacing: waiting 262s
+
+idos-staking-y7-10  try 1  arbitrum 0x21d91cedf2cf162c87f14ce988a04c35737f7e0d 0x68731d6f14b827bbcffbebb62b19daa18de1d79c
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: EXTRACTION_MODEL_ERROR  106.653s  0x1d6365ec1b1e8d08da6ce46234e65d2d767e9fdb1d4eef114e8a4f999ac51626
+  waiting 60s
+  GitHub spacing: waiting 163s
+
+idos-staking-y7-10  try 2  arbitrum 0x21d91cedf2cf162c87f14ce988a04c35737f7e0d 0x68731d6f14b827bbcffbebb62b19daa18de1d79c
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true MATCHES  80.198s  0x3fd16354c08a15923fb4fb7afea4c7a085542ae8af850eabe4785a93eae18451
+  GitHub spacing: waiting 235s
+
+cult-idriss-base  try 1  base 0xf4937657ed8b3f3cb379eed47b8818ee947beb1e 1980
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  23.111s  0x48fdcd7a2e8bb325a3d351485efa3fcf8f5cc1d405012fa4a6b5233f2d9f2a7a
+  GitHub spacing: waiting 292s
+
+pegaxy-team-polygon  try 1  polygon 0x8757e9873444aa07c610b1fc3b6717e86e6452d1 0xc1c93d475dc82fe72dbc7074d55f5a734f8ceeae
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … write fee simulation failed for file_check (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4)
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … fee estimate unavailable (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4), using node default
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 1 hit transient RPC noise, waiting 4s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 2 hit transient RPC noise, waiting 8s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 3 hit transient RPC noise, waiting 12s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 4 hit transient RPC noise, waiting 16s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 5 hit transient RPC noise, waiting 20s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  UNSETTLED ok=false submit failed — An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4  72.193s  null
+  waiting 60s
+  GitHub spacing: waiting 198s
+
+pegaxy-team-polygon  try 2  polygon 0x8757e9873444aa07c610b1fc3b6717e86e6452d1 0xc1c93d475dc82fe72dbc7074d55f5a734f8ceeae
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … write fee simulation failed for file_check (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4)
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … fee estimate unavailable (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4), using node default
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 1 hit transient RPC noise, waiting 4s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 2 hit transient RPC noise, waiting 8s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 3 hit transient RPC noise, waiting 12s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 4 hit transient RPC noise, waiting 16s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 5 hit transient RPC noise, waiting 20s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  UNSETTLED ok=false submit failed — An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4  72.155s  null
+  waiting 60s
+  GitHub spacing: waiting 183s
+
+ditto-founder  try 1  ethereum 0x7cc7e125d83a581ff438608490cc0f7bdff79127 10
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … write fee simulation failed for file_check (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4)
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … fee estimate unavailable (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4), using node default
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 1 hit transient RPC noise, waiting 4s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 2 hit transient RPC noise, waiting 8s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 3 hit transient RPC noise, waiting 12s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 4 hit transient RPC noise, waiting 16s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 5 hit transient RPC noise, waiting 20s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  UNSETTLED ok=false submit failed — An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4  72.338s  null
+  waiting 60s
+  GitHub spacing: waiting 198s
+
+ditto-founder  try 2  ethereum 0x7cc7e125d83a581ff438608490cc0f7bdff79127 10
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … write fee simulation failed for file_check (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4)
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … fee estimate unavailable (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4), using node default
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 1 hit transient RPC noise, waiting 4s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 2 hit transient RPC noise, waiting 8s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 3 hit transient RPC noise, waiting 12s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 4 hit transient RPC noise, waiting 16s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 5 hit transient RPC noise, waiting 20s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  UNSETTLED ok=false submit failed — An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4  72.187s  null
+  waiting 60s
+  GitHub spacing: waiting 183s
+
+fu-team-arbitrum  try 1  arbitrum 0xfdd9d122b451f549f48c4942c6fa6646d849e8c1 17890
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … write fee simulation failed for file_check (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4)
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … fee estimate unavailable (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4), using node default
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 1 hit transient RPC noise, waiting 4s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 2 hit transient RPC noise, waiting 8s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 3 hit transient RPC noise, waiting 12s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 4 hit transient RPC noise, waiting 16s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 5 hit transient RPC noise, waiting 20s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  UNSETTLED ok=false submit failed — An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4  72.135s  null
+  waiting 60s
+  GitHub spacing: waiting 198s
+
+fu-team-arbitrum  try 2  arbitrum 0xfdd9d122b451f549f48c4942c6fa6646d849e8c1 17890
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … write fee simulation failed for file_check (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4)
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 1 hit transient RPC noise, waiting 2s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … file_check fee attempt 2 hit transient RPC noise, waiting 4s
+GenLayer RPC error (sim_getFeeConfig): fetch failed
+  … fee estimate unavailable (An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4), using node default
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 1 hit transient RPC noise, waiting 4s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 2 hit transient RPC noise, waiting 8s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 3 hit transient RPC noise, waiting 12s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 4 hit transient RPC noise, waiting 16s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  … file_check attempt 5 hit transient RPC noise, waiting 20s
+GenLayer RPC error (eth_getTransactionCount): fetch failed
+  UNSETTLED ok=false submit failed — An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4  72.127s  null
+  waiting 60s
+GenLayer RPC error (gen_call): fetch failed
+  … get_stats attempt 1 hit transient RPC noise, waiting 4s
+GenLayer RPC error (gen_call): fetch failed
+  … get_stats attempt 2 hit transient RPC noise, waiting 8s
+GenLayer RPC error (gen_call): fetch failed
+  … get_stats attempt 3 hit transient RPC noise, waiting 12s
+GenLayer RPC error (gen_call): fetch failed
+  … get_stats attempt 4 hit transient RPC noise, waiting 16s
+GenLayer RPC error (gen_call): fetch failed
+  … get_stats attempt 5 hit transient RPC noise, waiting 20s
+GenLayer RPC error (gen_call): fetch failed
+file:///Users/kenilvakariya/dev/vestingcheck/test/node_modules/viem/_esm/utils/buildRequest.js:127
+                        throw new UnknownRpcError(err);
+                              ^
+
+UnknownRpcError: An unknown RPC error occurred.
+
+Details: fetch failed
+Version: viem@2.57.4
+    at withRetry.delay.count.count (file:///Users/kenilvakariya/dev/vestingcheck/test/node_modules/viem/_esm/utils/buildRequest.js:127:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async attemptRetry (file:///Users/kenilvakariya/dev/vestingcheck/test/node_modules/viem/_esm/utils/promise/withRetry.js:24:30) {
+  details: 'fetch failed',
+  docsPath: undefined,
+  metaMessages: undefined,
+  shortMessage: 'An unknown RPC error occurred.',
+  version: '2.57.4',
+  code: -1,
+  [cause]: TypeError: fetch failed
+      at node:internal/deps/undici/undici:14976:13
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Object.request (file:///Users/kenilvakariya/dev/vestingcheck/test/node_modules/genlayer-js/dist/index.js:5724:26)
+      at async withRetry.delay.count.count (file:///Users/kenilvakariya/dev/vestingcheck/test/node_modules/viem/_esm/utils/buildRequest.js:30:24)
+      at async attemptRetry (file:///Users/kenilvakariya/dev/vestingcheck/test/node_modules/viem/_esm/utils/promise/withRetry.js:24:30) {
+    [cause]: Error: getaddrinfo ENOTFOUND studio-dev.genlayer.com
+        at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26) {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'studio-dev.genlayer.com'
+    }
+  }
+}
+
+Node.js v22.22.2
+EXIT 1
+VestingCheck 0xD225b3E0D98b2F90a7a7da97C61A920465a3022E
+
+pegaxy-team-polygon  try 1  polygon 0x8757e9873444aa07c610b1fc3b6717e86e6452d1 0xc1c93d475dc82fe72dbc7074d55f5a734f8ceeae
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  38.166s  0xbffc44c4e789512e77db77149ec612c14cdfbe64cae3db5438ea398b97de477f
+  GitHub spacing: waiting 277s
+
+ditto-founder  try 1  ethereum 0x7cc7e125d83a581ff438608490cc0f7bdff79127 10
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  22.843s  0x3a1e97210b3eb0a638afb7b18e6d1bd8ca03374014b3623a5132adb5fb5c6be9
+  GitHub spacing: waiting 292s
+
+fu-team-arbitrum  try 1  arbitrum 0xfdd9d122b451f549f48c4942c6fa6646d849e8c1 17890
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  31.332s  0xd6edbd17625292801194a140ff5cb39e21dc4927b73ef803c83c040c08d23a5a
+
+stats {"BENEFICIARY_DIFFERS":0,"CANCELABLE_NOT_DISCLOSED":0,"LESS_THAN_CLAIMED":0,"MATCHES":7,"MORE_THAN_CLAIMED":0,"UNLOCKS_EARLIER":0,"UNLOCKS_LATER":0,"UNVERIFIABLE":7,"keys":14,"records":14}
+EXIT 0

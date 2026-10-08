@@ -1,0 +1,219 @@
+
+unlocks_earlier: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","ethereum","0x93b37bd5b6b278373217333ac30d7e74)  expect UNLOCKS_EARLIER
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNLOCKS_EARLIER  matched=true  45.637s 0x82d939db1d1233013bdeef42c53dcffbb7e42b15698dabd335030a466aa41e63
+  GitHub spacing: waiting 276s
+
+unlocks_later: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","ethereum","0x93b37bd5b6b278373217333ac30d7e74)  expect UNLOCKS_LATER
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNLOCKS_LATER  matched=true  47.596s 0x6d774ae95905922a9ae2205743f5144c27ac5fb6cc8b9c0d211371825422ac43
+  GitHub spacing: waiting 274s
+
+more_than_claimed: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","ethereum","0x93b37bd5b6b278373217333ac30d7e74)  expect MORE_THAN_CLAIMED
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  matched=false  46.936s 0x6b7edf13f2cbe4534277b40415c4248d316df4288fd7df9531ad668ef2652858
+  GitHub spacing: waiting 275s
+
+less_than_claimed: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","arbitrum","0x6a553c044a6a113b01be52372e8d7bc9)  expect LESS_THAN_CLAIMED
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true LESS_THAN_CLAIMED  matched=true  84.254s 0xbb779b47b2538cee893776cf6a5fcb339d3e5373c3caa34ff00e1d9aff41c153
+  GitHub spacing: waiting 238s
+
+cancelable_not_disclosed: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","base","0xf4937657ed8b3f3cb379eed47b8818ee947b)  expect CANCELABLE_NOT_DISCLOSED
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true CANCELABLE_NOT_DISCLOSED  matched=true  38.766s 0xfb92a31e9a964175b361b3dd552cfc18ad739d1f3ca6a217db938b0d6c4d3e37
+  GitHub spacing: waiting 283s
+
+beneficiary_differs: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","arbitrum","0x03ed348892a88182e74d8e76e6f75292)  expect BENEFICIARY_DIFFERS
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  matched=false  31.194s 0xca81d840d1d0ac69429002448a669c361ef314927d3aa2b542c31fec016f2543
+  GitHub spacing: waiting 291s
+
+matches_real_docs: file_check(["https://raw.githubusercontent.com/clx-trade/crossledger-site/388aa0af887f9cbf9312c31c2f11da0bebbb90d3/lib/site.js","","ethereum","0x93b37bd5b6b278373217333ac30d7e74c85f)  expect MATCHES
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true MATCHES  matched=true  36.739s 0x18c8ac62d8dd2b26bea645505ef88e815869d55b8b97379b38b68dfbd6645a51
+
+unverifiable_real_proposal: file_check(["bafkreiax3o7zuvfdu6vn447hu6ypmu4weqmyodikiyav6lkcibn3cfgdh4","","ethereum","0x5cb5ba62dc8ced477f20d4692986f1cd42174761","0xa117000000f279d81a1d3cc75430faa017fa5a2e"])  expect UNVERIFIABLE
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  matched=true  36.657s 0x9ce4cf886874e24826072ee2deb36004943477b885fb690c8cc8fc2e048f62b6
+
+refuse_not_pinned: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/main/docs/demo/claims.md","","ethereum","0x93b37bd5b6b278373217333ac30d7e74c85fbdcb","1784"])  expect URL_NOT_PINNED_TO_COMMIT
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: URL_NOT_PINNED_TO_COMMIT  matched=true  13.299s 0x4f42b0b7fb84c70abc9fd2015da490fde8a0accd83bd839a23e3d5b9fb356846
+
+refuse_host: file_check(["https://docs.example.com/vesting.md","","ethereum","0x93b37bd5b6b278373217333ac30d7e74c85fbdcb","1784"])  expect URL_HOST_NOT_ALLOWED
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: URL_HOST_NOT_ALLOWED  matched=true  15.33s 0x182776c8cf45140e8a5b664400c3386b8cc1e636ad0f2c4c3c3ec99173843dda
+
+refuse_chain: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","bsc","0x93b37bd5b6b278373217333ac30d7e74c85fb)  expect UNSUPPORTED_CHAIN
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: UNSUPPORTED_CHAIN  matched=true  14.247s 0x783f170860583b607183cc5d4ec695e29bfc3ecb0b3b6199fb5b810e5d416eae
+
+refuse_branch_for_snapshot: file_check(["bafkreiax3o7zuvfdu6vn447hu6ypmu4weqmyodikiyav6lkcibn3cfgdh4","main","ethereum","0x5cb5ba62dc8ced477f20d4692986f1cd42174761","0xa117000000f279d81a1d3cc75430faa017fa5a2e")  expect BRANCH_ONLY_FOR_GITHUB
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: BRANCH_ONLY_FOR_GITHUB  matched=true  12.887s 0x2c5617933e9adfc973b6ffc7174a86e8f3880b1fd3a19140bb3c6ce68c941be9
+
+refuse_stream_id_required: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","ethereum","0x93b37bd5b6b278373217333ac30d7e74)  expect STREAM_ID_REQUIRED
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: STREAM_ID_REQUIRED  matched=true  13.167s 0x2e8f269ab9ece920ae2264b8143080c1e6d97b6c45d7fc87da6203556db7abcf
+
+refuse_token_required: file_check(["bafkreiax3o7zuvfdu6vn447hu6ypmu4weqmyodikiyav6lkcibn3cfgdh4","","ethereum","0x5cb5ba62dc8ced477f20d4692986f1cd42174761",""])  expect TOKEN_ADDRESS_REQUIRED
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: TOKEN_ADDRESS_REQUIRED  matched=true  12.237s 0x0d4252e44c932622cf439eeace7d2589742ee33fda540d41d95b19c5a90c0fb8
+
+refuse_subject_not_in_source: file_check(["bafkreigcle3bklsp4o6os6kn6zxyduagdmt22d2dt73dode2cult5ydfye","","optimism","0xb923abdca17aed90eb5ec5e407bd37164f632bfd","7157"])  expect SUBJECT_NOT_IN_SOURCE
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: SUBJECT_NOT_IN_SOURCE  matched=true  23.566s 0xf07131c0dcc30b7c6e8f2969348059ef80e064e62d5aedd1307a7f790fd254a2
+
+refuse_stream_not_found: file_check(["bafkreigcle3bklsp4o6os6kn6zxyduagdmt22d2dt73dode2cult5ydfye","","optimism","0xb923abdca17aed90eb5ec5e407bd37164f632bfd","999999999"])  expect STREAM_NOT_FOUND
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: STREAM_NOT_FOUND  matched=true  14.651s 0x4ef0a1bf60e1ae5eb66bdde1eee1eb8fe42607e42cb3da9033b65ec1b8e14ca5
+
+refuse_cooldown: file_check(["bafkreiax3o7zuvfdu6vn447hu6ypmu4weqmyodikiyav6lkcibn3cfgdh4","","ethereum","0x5cb5ba62dc8ced477f20d4692986f1cd42174761","0xa117000000f279d81a1d3cc75430faa017fa5a2e"])  expect COOLDOWN_UNTIL
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: DUPLICATE_OF_RECORD_8  matched=false  27.968s 0xf5f245234876953b9efead5835d97acbee7642b35f993dc89fe9275f017c62ca
+
+refuse_recheck_cooldown: recheck([8])  expect COOLDOWN_UNTIL
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for recheck (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  matched=false  23.041s 0x6cd26f8d438113b4cd4a44f80621f393f5389772eb326ebb8eeac78291fe544b
+sleep 65s
+
+duplicate_same_block: file_check(["bafkreiax3o7zuvfdu6vn447hu6ypmu4weqmyodikiyav6lkcibn3cfgdh4","","ethereum","0x5cb5ba62dc8ced477f20d4692986f1cd42174761","0xa117000000f279d81a1d3cc75430faa017fa5a2e"])  expect DUPLICATE_OF_RECORD
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: DUPLICATE_OF_RECORD_9  matched=true  36.225s 0xf36a18c9d81134de224f466a33eaab061787f86f0c1dc4be51ffdb970e2b272c
+sleep 480s
+
+recheck_after_cooldown: recheck([8])  expect (new record linked to the first)
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for recheck (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  matched=true  59.312s 0x037427428fe1854c0f73a30600ac3be1c1f63e18b12757a8888126091daae89e
+
+refuse_unknown_record: recheck([9999])  expect NO_SUCH_RECORD
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for recheck (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: NO_SUCH_RECORD  matched=true  13.493s 0x65040b6969d6c8781b9ac8bf3f471c731fb7c2cce32ddb9503042271ded80cd1
+
+stats {"BENEFICIARY_DIFFERS":0,"CANCELABLE_NOT_DISCLOSED":1,"LESS_THAN_CLAIMED":1,"MATCHES":1,"MORE_THAN_CLAIMED":0,"UNLOCKS_EARLIER":1,"UNLOCKS_LATER":1,"UNVERIFIABLE":5,"keys":8,"records":10}
+EXIT 0
+
+more_than_claimed: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","ethereum","0x93b37bd5b6b278373217333ac30d7e74)  expect MORE_THAN_CLAIMED
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true MORE_THAN_CLAIMED  matched=true  134.143s 0x9b19837d8cce4df6a2a2d1024bc1e28ff452b193b2d9226c51fef6d5760d43b8
+  GitHub spacing: waiting 188s
+
+beneficiary_differs: file_check(["https://raw.githubusercontent.com/kenil1710/vestingcheck/44491d5b8ff593f912fe3ddebd73c5bbfad24366/docs/demo/claims.md","","arbitrum","0x03ed348892a88182e74d8e76e6f75292)  expect BENEFICIARY_DIFFERS
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true BENEFICIARY_DIFFERS  matched=true  46.325s 0x92e75d59170b3c6e79cfe4b1676d978beb784ed2ea944b0f50533c52261d4a70
+
+stats {"BENEFICIARY_DIFFERS":1,"CANCELABLE_NOT_DISCLOSED":1,"LESS_THAN_CLAIMED":1,"MATCHES":1,"MORE_THAN_CLAIMED":1,"UNLOCKS_EARLIER":1,"UNLOCKS_LATER":1,"UNVERIFIABLE":5,"keys":8,"records":12}
+
+recheck_after_cooldown: recheck([8])  expect (new record linked to the first)
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for recheck (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=true UNVERIFIABLE  matched=true  55.865s 0xde33bda14dedecc7a13dcc298951160bc3b50fb63775d76f18f0043457deb6fa
+
+stats {"BENEFICIARY_DIFFERS":1,"CANCELABLE_NOT_DISCLOSED":1,"LESS_THAN_CLAIMED":1,"MATCHES":1,"MORE_THAN_CLAIMED":1,"UNLOCKS_EARLIER":1,"UNLOCKS_LATER":1,"UNVERIFIABLE":6,"keys":8,"records":13}
+
+refuse_cooldown: file_check(["bafkreiax3o7zuvfdu6vn447hu6ypmu4weqmyodikiyav6lkcibn3cfgdh4","","ethereum","0x5cb5ba62dc8ced477f20d4692986f1cd42174761","0xa117000000f279d81a1d3cc75430faa017fa5a2e"])  expect COOLDOWN_UNTIL
+GenLayer RPC error (sim_estimateTransactionFees): execution failed
+  … write fee simulation failed for file_check (Missing or invalid parameters.
+Double check you have provided the correct parameters.
+
+Details: exec)
+  ACCEPTED ok=false REFUSED: COOLDOWN_UNTIL_1791465219  matched=true  14.587s 0x01869b992b127fd6ee73b2ea65ecef3e3b5036cd12e621d10bf9e3fbf9ce80f7
+
+stats {"BENEFICIARY_DIFFERS":1,"CANCELABLE_NOT_DISCLOSED":1,"LESS_THAN_CLAIMED":1,"MATCHES":1,"MORE_THAN_CLAIMED":1,"UNLOCKS_EARLIER":1,"UNLOCKS_LATER":1,"UNVERIFIABLE":6,"keys":8,"records":13}
+EXIT2

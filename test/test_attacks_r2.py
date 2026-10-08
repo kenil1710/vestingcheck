@@ -139,7 +139,7 @@ PRICES = """## Round
 
 class R2M4NumberInANonAmountColumn(unittest.TestCase):
     """A cell under "Price" (or "FDV", "Raise") was read as the token
-    amount, because only %%, date and duration columns were refused. Fix: in
+    amount, because only %, date and duration columns were refused. Fix: in
     a table, an amount is read only from a column whose header names an
     amount (Amount, Tokens, Allocation, Total)."""
 

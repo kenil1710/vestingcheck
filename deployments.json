@@ -5,35 +5,35 @@
   "explorer": "https://explorer-studio-dev.genlayer.com/",
   "contracts": {
     "VestingCheck": {
-      "address": "0xDe1db41f54Eb4994360bBCd566B8F88a25559593",
-      "deploy_tx": "0xad3d4055d79f65ea786b87551a3052c0ff5afd62b8e23dacc8dbfc26995b2f90",
+      "address": "0xD225b3E0D98b2F90a7a7da97C61A920465a3022E",
+      "deploy_tx": "0xbc8870b6c235fc7f9fe61ce2fd2c5f9fb4ec15290d2ee6276a657dd1d3889146",
       "file": "contracts/VestingCheck.py",
-      "commit": "103c46d76fd86b33137a96602c9be63fd3dd5c73",
-      "bytes": 147387,
-      "sha256": "4f6d6bc3f6200c9a804c1de40b23f45dac0cf1b482cb35f7b84001490145884f",
+      "commit": "3f6ad48b34e6fef0d151a795e2e020704cdc69c4",
+      "bytes": 148970,
+      "sha256": "92dad0f09868f42f94ad6e3d8c5ecdd35e9f1abc1ffaf3ad3a3916f9e58b1139",
       "constructor_args": [
         "CANONICAL",
         21600,
         3600
       ],
       "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
-      "deployed_at": "2026-10-08T09:56:41.460Z",
+      "deployed_at": "2026-10-08T10:10:09.965Z",
       "mode": "CANONICAL"
     },
     "VestingCheckDemo": {
-      "address": "0x90e4E6FA4B79915aE6453406C292f798403c925d",
-      "deploy_tx": "0xd9d9fda144edc0e682e8673cfc347b5446e5d83e927285c7b790c5d4e6153796",
+      "address": "0x884De4ce7bb1890A201533747d7C21B3Ee8F308d",
+      "deploy_tx": "0x8ef065118191b89558bd5240f1de784c82fbb6fecb2470e68746eebd4466a119",
       "file": "contracts/VestingCheck.py",
-      "commit": "103c46d76fd86b33137a96602c9be63fd3dd5c73",
-      "bytes": 147387,
-      "sha256": "4f6d6bc3f6200c9a804c1de40b23f45dac0cf1b482cb35f7b84001490145884f",
+      "commit": "3f6ad48b34e6fef0d151a795e2e020704cdc69c4",
+      "bytes": 148970,
+      "sha256": "92dad0f09868f42f94ad6e3d8c5ecdd35e9f1abc1ffaf3ad3a3916f9e58b1139",
       "constructor_args": [
         "DEMO",
         60,
         1800
       ],
       "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
-      "deployed_at": "2026-10-08T09:56:47.938Z",
+      "deployed_at": "2026-10-08T10:10:16.477Z",
       "mode": "DEMO"
     }
   },
@@ -113,6 +113,44 @@
       "mode": "DEMO",
       "superseded_by": "0x90e4E6FA4B79915aE6453406C292f798403c925d",
       "why": "v1.2.0: parser + seeds"
+    },
+    {
+      "name": "VestingCheck",
+      "address": "0xDe1db41f54Eb4994360bBCd566B8F88a25559593",
+      "deploy_tx": "0xad3d4055d79f65ea786b87551a3052c0ff5afd62b8e23dacc8dbfc26995b2f90",
+      "file": "contracts/VestingCheck.py",
+      "commit": "103c46d76fd86b33137a96602c9be63fd3dd5c73",
+      "bytes": 147387,
+      "sha256": "4f6d6bc3f6200c9a804c1de40b23f45dac0cf1b482cb35f7b84001490145884f",
+      "constructor_args": [
+        "CANONICAL",
+        21600,
+        3600
+      ],
+      "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
+      "deployed_at": "2026-10-08T09:56:41.460Z",
+      "mode": "CANONICAL",
+      "superseded_by": "0xD225b3E0D98b2F90a7a7da97C61A920465a3022E",
+      "why": "v1.2.1: dates read by their own clause (v1.2.0 extraction was unstable on date-written schedules)"
+    },
+    {
+      "name": "VestingCheckDemo",
+      "address": "0x90e4E6FA4B79915aE6453406C292f798403c925d",
+      "deploy_tx": "0xd9d9fda144edc0e682e8673cfc347b5446e5d83e927285c7b790c5d4e6153796",
+      "file": "contracts/VestingCheck.py",
+      "commit": "103c46d76fd86b33137a96602c9be63fd3dd5c73",
+      "bytes": 147387,
+      "sha256": "4f6d6bc3f6200c9a804c1de40b23f45dac0cf1b482cb35f7b84001490145884f",
+      "constructor_args": [
+        "DEMO",
+        60,
+        1800
+      ],
+      "deployer": "0x40697b2D3ed573Fd9C67262a7A05fc7Dc0f28Cf3",
+      "deployed_at": "2026-10-08T09:56:47.938Z",
+      "mode": "DEMO",
+      "superseded_by": "0x884De4ce7bb1890A201533747d7C21B3Ee8F308d",
+      "why": "v1.2.1: dates read by their own clause (v1.2.0 extraction was unstable on date-written schedules)"
     }
   ]
 }

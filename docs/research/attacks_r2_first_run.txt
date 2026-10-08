@@ -1,0 +1,18 @@
+First run of test/test_attacks_r2.py against the uncommitted v1.2.0 draft
+(before the round-2 fixes), 2026-10-08:
+
+ERROR: test_end (test_attacks_r2.R2M2DateThatAnchorsARelativePhrase.test_end)
+ERROR: test_first_unlock (test_attacks_r2.R2M2DateThatAnchorsARelativePhrase.test_first_unlock)
+ERROR: test_vote_date_is_not_a_first_unlock (test_attacks_r2.R2M3EndWordFarFromTheDate.test_vote_date_is_not_a_first_unlock)
+ERROR: test_vote_date_is_not_an_end (test_attacks_r2.R2M3EndWordFarFromTheDate.test_vote_date_is_not_an_end)
+ERROR: test_price_cell (test_attacks_r2.R2M4NumberInANonAmountColumn.test_price_cell)
+ERROR: test_whole_row_without_an_amount_column (test_attacks_r2.R2M4NumberInANonAmountColumn.test_whole_row_without_an_amount_column)
+FAIL: test_current_row_alone_is_not_kept_either (test_attacks_r2.R2M1TwoLabelRowsThatDisagree.test_current_row_alone_is_not_kept_either)
+FAIL: test_stale_row_alone_is_not_kept (test_attacks_r2.R2M1TwoLabelRowsThatDisagree.test_stale_row_alone_is_not_kept)
+FAIL: test_other_groups_row (test_attacks_r2.Resisted.test_other_groups_row)
+Ran 21 tests
+FAILED (failures=3, errors=6)
+
+(The ERRORs are the draft returning a value where the test expected a drop.
+test_other_groups_row failed because "6 months" matched inside "36 months":
+that became finding R2-M5.)
